@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Game</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #gameCanvas {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Click the Box Game</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script>
+        let canvas = document.getElementById("gameCanvas");
+        let ctx = canvas.getContext("2d");
+        
+        let boxX = Math.random() * 350;
+        let boxY = Math.random() * 350;
+        let boxSize = 50;
+
+        function drawBox() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "red";
+            ctx.fillRect(boxX, boxY, boxSize, boxSize);
+        }
+
+        canvas.addEventListener("click", function(event) {
+            let rect = canvas.getBoundingClientRect();
+            let mouseX = event.clientX - rect.left;
+            let mouseY = event.clientY - rect.top;
+
+            if (mouseX >= boxX && mouseX <= boxX + boxSize && mouseY >= boxY && mouseY <= boxY + boxSize) {
+                boxX = Math.random() * 350;
+                boxY = Math.random() * 350;
+                drawBox();
+            }
+        });
+
+        drawBox();
+    </script>
+</body>
+</html>
